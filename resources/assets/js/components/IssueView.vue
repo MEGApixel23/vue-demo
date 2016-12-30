@@ -27,6 +27,8 @@
 
 </style>
 <script>
+  import IssueResource from './../resources/Issue';
+
   export default {
     data() {
       return {
@@ -41,9 +43,7 @@
       getIssueById(id) {
         this.loading = true;
 
-        return this.$http
-          .get(`https://api.github.com/repos/octocat/Hello-World/issues/${id}`)
-          .then((response) => {
+        return IssueResource.get({id}).then((response) => {
             this.issue = response.body;
             this.loading = false;
           });

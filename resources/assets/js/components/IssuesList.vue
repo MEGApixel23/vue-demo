@@ -19,6 +19,8 @@
 </template>
 
 <script>
+  import IssueResource from './../resources/Issue';
+
   export default {
     data() {
       return {
@@ -35,8 +37,7 @@
         this.page = this.page + 1;
         this.loading = true;
 
-        return this.$http
-          .get(`https://api.github.com/repos/octocat/Hello-World/issues?page=${this.page}`)
+        return IssueResource.query({page: this.page})
           .then((response) => {
             this.issues = [...this.issues, ...response.body];
             this.loading = false;
