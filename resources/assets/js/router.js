@@ -3,12 +3,18 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-const Example = require('./components/Example.vue');
+const IssuesList = require('./components/IssuesList.vue');
+const IssueView = require('./components/IssueView.vue');
 
 const routes = [
   {
     path: '/',
-    component: Example
+    component: IssuesList,
+    name: 'home'
+  }, {
+    path: '/:id',
+    component: IssueView,
+    name: 'issue'
   }
 ];
 const router = new VueRouter({ routes });
