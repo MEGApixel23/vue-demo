@@ -3,6 +3,6 @@ import VueResource from 'vue-resource';
 
 Vue.use(VueResource);
 
-const resource = Vue.resource('/api/items');
+const resource = Vue.resource('/api/items{/id}');
 
 export default resource;

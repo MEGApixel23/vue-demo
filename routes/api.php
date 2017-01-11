@@ -17,3 +17,7 @@ Route::group(['middleware' => 'api'], function () {
 
     Route::get('/items', 'ItemController@index');
 });
+
+Route::group(['middleware' => 'api.auth'], function () {
+    Route::resource('/items', 'ItemController', ['only' => ['store', 'destroy']]);
+});

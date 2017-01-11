@@ -16,6 +16,7 @@ elixir.config.sourcemaps = true;
  */
 
 elixir(mix => {
-    mix.sass('app.scss')
-       .webpack('app.js');
+  mix.sass('app.scss')
+    .webpack('app.js')
+    .browserSync({proxy: 'http://localhost:8000/'});
 });
