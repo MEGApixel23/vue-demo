@@ -3,20 +3,17 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-const IssuesList = require('./components/IssuesList.vue');
-const IssueView = require('./components/IssueView.vue');
+const Login = require('./components/Login.vue');
+const List = require('./components/List.vue');
 
 const routes = [
   {
     path: '/',
-    component: IssuesList,
-    name: 'home'
-  }, {
-    path: '/:id',
-    component: IssueView,
-    name: 'issue'
+    component: List,
+    name: 'list'
   }
 ];
+
 const router = new VueRouter({ routes });
 
 export default router;
