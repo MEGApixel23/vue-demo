@@ -24,43 +24,49 @@
     </div>
   </div>
 </template>
+
 <style>
   .inline {
     display: inline-block;
   }
 </style>
+
 <script>
+  import { mapMutations } from 'vuex';
   import AuthResource from './../resources/auth/Auth.js';
 
   export default {
     data: () => ({
-      token: null,
       email: null,
       password: null,
-      error: null,
-      isAuth: false
+      error: null
     }),
 
+    computed: {
+      isAuth() {
+        return !!this.$store.state.token;
+      },
+    },
+    
     created() {
-      this.isAuth = AuthResource.isAuth();
     },
 
     methods: {
+      ...mapMutations([ 'setToken', 'removeToken' ]),
+
       onSubmit() {
         AuthResource.login({
           email: this.email, 
           password: this.password
         }).then(({body: {token}}) => {
-          AuthResource.setToken(token);
-          this.isAuth = AuthResource.isAuth();
+          this.setToken(token);
         }).catch(() => {
           this.error = 'Wrong credentials';
         })
       },
 
       logout() {
-        AuthResource.destroyToken();
-        this.isAuth = AuthResource.isAuth();
+        this.removeToken();
       },
     }
   }
