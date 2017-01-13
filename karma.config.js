@@ -6,7 +6,7 @@ if (webpackConf.entry) {
   delete webpackConf.entry;
 }
 
-module.exports = function(config) {
+module.exports = (config) => {
   config.set({
 
     frameworks: ['jasmine'],
