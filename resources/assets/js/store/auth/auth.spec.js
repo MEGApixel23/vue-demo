@@ -23,3 +23,16 @@ describe('auth.mutations', () => {
     expect( window.localStorage.getItem(TOKEN_KEY) ).toBe(null);
   });
 });
+
+describe('auth.getters', () => {
+  it('should return that user is NOT authorized if token is not set', () => {
+    const state = { token: null };
+
+    expect( auth.getters.isAuth(state) ).toBe(false);
+  });
+  it('should return that user is authorized if token is set', () => {
+    const state = { token: TOKEN };
+
+    expect( auth.getters.isAuth(state) ).toBe(true);
+  });
+});
