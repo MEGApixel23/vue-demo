@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.isAuth === false" >
+  <div v-if="isAuth === false" >
     <form v-on:submit.prevent="onSubmit">
       <div class="inline">
         <label for="email"></label>
@@ -32,8 +32,8 @@
 </style>
 
 <script>
-  import { mapMutations } from 'vuex';
-  import AuthResource from './../resources/auth/Auth.js';
+  import { mapActions, mapState, mapGetters } from 'vuex';
+  import { SET_TOKEN, REMOVE_TOKEN } from './../store/actions';
 
   export default {
     data: () => ({
@@ -43,30 +43,21 @@
     }),
 
     computed: {
-      isAuth() {
-        return !!this.$store.state.token;
-      },
-    },
-    
-    created() {
+      ...mapGetters(['isAuth']),
     },
 
     methods: {
-      ...mapMutations([ 'setToken', 'removeToken' ]),
+      ...mapActions([ SET_TOKEN, REMOVE_TOKEN ]),
 
       onSubmit() {
-        AuthResource.login({
-          email: this.email, 
+        this[SET_TOKEN]({
+          email: this.email,
           password: this.password
-        }).then(({body: {token}}) => {
-          this.setToken(token);
-        }).catch(() => {
-          this.error = 'Wrong credentials';
-        })
+        }).catch((error) => ( this.error = error ));
       },
 
       logout() {
-        this.removeToken();
+        this[REMOVE_TOKEN]();
       },
     }
   }
