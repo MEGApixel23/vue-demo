@@ -33,7 +33,7 @@
 
 <script>
   import { mapActions, mapState, mapGetters } from 'vuex';
-  import { SET_TOKEN, REMOVE_TOKEN } from './../store/actions';
+  import { SET_TOKEN, REMOVE_TOKEN, CHECK_TOKEN } from './../store/actions';
 
   export default {
     data: () => ({
@@ -46,8 +46,14 @@
       ...mapGetters(['isAuth']),
     },
 
+    created() {
+      if (this.isAuth) {
+        this[CHECK_TOKEN]();
+      }
+    },
+
     methods: {
-      ...mapActions([ SET_TOKEN, REMOVE_TOKEN ]),
+      ...mapActions([ SET_TOKEN, REMOVE_TOKEN, CHECK_TOKEN ]),
 
       onSubmit() {
         this[SET_TOKEN]({

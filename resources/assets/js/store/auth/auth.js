@@ -1,5 +1,5 @@
 import AuthResource from './../../resources/auth/Auth';
-import { REMOVE_TOKEN, SET_TOKEN } from '../actions';
+import { REMOVE_TOKEN, SET_TOKEN, CHECK_TOKEN } from '../actions';
 
 const TOKEN_KEY = 'token';
 
@@ -17,8 +17,12 @@ export default {
 
     [REMOVE_TOKEN]({ commit }) {
       return commit(REMOVE_TOKEN);
-    }
+    },
 
+    [CHECK_TOKEN]({ commit }) {
+      return AuthResource.verify()
+        .catch(() => commit(REMOVE_TOKEN));
+    }
   },
 
   state: {

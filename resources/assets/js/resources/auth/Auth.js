@@ -6,6 +6,10 @@ Vue.use(VueResource);
 const resource = Vue.resource('/api/login', {}, {
   login: {
     method: 'POST'
+  },
+  verify: {
+    method: 'GET',
+    url: '/api/auth/verify'
   }
 });
 

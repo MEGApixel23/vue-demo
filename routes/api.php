@@ -19,5 +19,7 @@ Route::group(['middleware' => 'api'], function () {
 });
 
 Route::group(['middleware' => 'api.auth'], function () {
+    Route::get('/auth/verify', function () { return response(['verified' => true]); });
+
     Route::resource('/items', 'ItemController', ['only' => ['store', 'destroy']]);
 });
