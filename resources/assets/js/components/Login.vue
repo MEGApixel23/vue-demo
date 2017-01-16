@@ -12,15 +12,15 @@
       </div>
 
       <div class="inline">
-        <button type="submit">Login</button>
+        <button type="submit" id="login">Login</button>
       </div>
 
-      <div>{{ error }}</div>
+      <div class="auth-errors error">{{ error }}</div>
     </form>
   </div>
   <div v-else>
     <div class="inline">
-      <button @click="logout" type="submit">Logout</button>
+      <button @click="logout" type="submit" id="logout">Logout</button>
     </div>
   </div>
 </template>
