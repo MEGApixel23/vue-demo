@@ -8,8 +8,9 @@ This is a simple todo-list with authorization written on Laravel 5 on back-end a
 2. ```npm install```
 3. ```touch ./database/database.sqlite```
 4. ```php artisan migrate```
-5. ```php artisan serve```
-6. Visit your http://localhost:8000
+5. ```php artisan db:seed```
+6. ```php artisan serve```
+7. Visit http://localhost:8000 within your browser
 
 # Testing
 1. To run front-end tests make sure you have your web server running. If your server has different URI than (http://localhost:8000) you can specify it in ```tests/acceptance/constants.js``` file.
