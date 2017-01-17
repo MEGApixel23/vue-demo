@@ -32,7 +32,7 @@
 </style>
 
 <script>
-  import { mapActions, mapState, mapGetters } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   import { SET_TOKEN, REMOVE_TOKEN, CHECK_TOKEN } from './../store/actions';
 
   export default {

@@ -8,6 +8,7 @@
     "tests": "npm run unit-tests && npm run acc-tests"
   },
   "devDependencies": {
+    "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
     "bootstrap-sass": "^3.3.7",
     "gulp": "^3.9.1",
