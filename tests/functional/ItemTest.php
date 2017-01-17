@@ -7,6 +7,8 @@ class ItemTest extends TestCase
 {
     use DatabaseTransactions;
 
+    private $endpointUrl = '/api/items';
+
     public function test_get_items_list()
     {
         $items = [
@@ -17,7 +19,7 @@ class ItemTest extends TestCase
             factory(Item::class)->create()->toArray()
         ];
 
-        return $this->request('GET', '/api/items', [], false)
+        return $this->request('GET', $this->endpointUrl, [], false)
             ->seeStatusCode(200)
             ->seeJsonStructure([
                 'current_page', 'per_page', 'current_page',
@@ -29,7 +31,7 @@ class ItemTest extends TestCase
 
     public function test_create_item_for_not_authenticated_user()
     {
-        return $this->request('POST', '/api/items', [], false)
+        return $this->request('POST', $this->endpointUrl, [], false)
             ->seeStatusCode(400);
     }
 
@@ -37,7 +39,7 @@ class ItemTest extends TestCase
     {
         $this->auth();
 
-        return $this->request('POST', '/api/items')
+        return $this->request('POST', $this->endpointUrl)
             ->seeStatusCode(422)
             ->seeJsonStructure(['text']);
     }
@@ -46,7 +48,7 @@ class ItemTest extends TestCase
     {
         $this->auth();
 
-        return $this->request('POST', '/api/items', ['text' => str_random(25)])
+        return $this->request('POST', $this->endpointUrl, ['text' => str_random(25)])
             ->seeStatusCode(200)
             ->seeJsonStructure(['text']);
     }
@@ -55,7 +57,7 @@ class ItemTest extends TestCase
     {
         $item = factory(Item::class)->create();
 
-        return $this->request('DELETE', "/api/items/{$item->id}")
+        return $this->request('DELETE', "{$this->endpointUrl}/{$item->id}")
             ->seeStatusCode(400);
     }
 
@@ -63,7 +65,7 @@ class ItemTest extends TestCase
     {
         $this->auth();
 
-        return $this->request('DELETE', '/api/items/888888')
+        return $this->request('DELETE', "{$this->endpointUrl}/888888")
             ->seeStatusCode(404);
     }
 
@@ -72,7 +74,7 @@ class ItemTest extends TestCase
         $this->auth();
         $item = factory(Item::class)->create();
 
-        return $this->request('DELETE', "/api/items/{$item->id}")
+        return $this->request('DELETE', "{$this->endpointUrl}/{$item->id}")
             ->seeStatusCode(200)
             ->seeJson($item->toArray());
     }
