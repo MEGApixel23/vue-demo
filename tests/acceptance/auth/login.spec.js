@@ -1,6 +1,6 @@
 import { login } from './../locators';
-import { waitFor } from './../helpers';
-import { BASE_URL, credentials } from './../constants';
+import { waitFor, auth } from './../helpers';
+import { BASE_URL } from './../constants';
 
 browser.ignoreSynchronization = true;
 
@@ -17,11 +17,8 @@ describe('Authorization flow', () => {
     expect(password.isPresent()).toBe(true);
     expect(submit.isPresent()).toBe(true);
 
-    email.sendKeys(credentials.valid.email);
-    password.sendKeys(credentials.valid.password);
-    submit.click();
-
-    waitFor({locator: login.logout})
+    auth()
+      .then(() => waitFor({locator: login.logout}))
       .then(() => logout.click());
   });
 
