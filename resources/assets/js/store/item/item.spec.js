@@ -10,6 +10,7 @@ const getTestItems = () => [
   {id: 3, text: 'test 3'},
 ];
 const getNewItem = () => ( {id: 4, text: 'test 4'} );
+const deleteItem = (items, itemToDelete) => items.filter((item) => item.id !== itemToDelete.id);
 
 describe('auth.mutations', () => {
   it('should set items', () => {
@@ -23,7 +24,7 @@ describe('auth.mutations', () => {
   it('should remove given item', () => {
     let state = { items: getTestItems() };
     let itemToRemove = state.items[1];
-    let resultItems = [ state.items[0], state.items[2] ];
+    let resultItems = deleteItem( state.items, itemToRemove );
 
     item.mutations[REMOVE_ITEM](state, itemToRemove.id);
     expect(state.items).toEqual(resultItems);
@@ -83,7 +84,7 @@ describe('auth.actions', () => {
       state: getTestItems(),
       expectedMutations: {
         type: REMOVE_ITEM,
-        payload: [getTestItems()[0], getTestItems()[2]]
+        payload: deleteItem( getTestItems(), getTestItems()[1] )
       }
     });
   });
