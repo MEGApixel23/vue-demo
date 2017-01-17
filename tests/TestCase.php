@@ -2,15 +2,17 @@
 
 use App\User;
 
+/**
+ * Class TestCase
+ *
+ * @property string $baseUrl
+ * @property string $token
+ * @property User $user
+ */
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
-    /**
-     * The base URL to use while testing the application.
-     *
-     * @var string
-     */
     protected $baseUrl = 'http://localhost';
-    protected $token = false;
+    protected $token;
     protected $user;
 
     /**
@@ -50,7 +52,11 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         return $response;
     }
 
-
+    /**
+     * Authenticates a user and sets token for future requests.
+     *
+     * @return User
+     */
     protected function auth()
     {
         if (empty($this->user)) {
